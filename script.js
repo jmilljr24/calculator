@@ -7,6 +7,7 @@ numberButton.forEach((button) => {
   button.addEventListener("click", () => {
     console.log(button.textContent);
     multiDigit(button.textContent);
+    currentOperandText.textContent = currentOperand;
   });
 });
 
@@ -22,6 +23,7 @@ operationButton.forEach((button) => {
     // operation(button.id, currentOperand, previousOperand);
     // document.getElementById(button.id).disabled = false;
     operator += button.id;
+
     previousOperand = currentOperand;
     currentOperand = "";
   });
@@ -52,7 +54,7 @@ const operation = function (mathFunction, current, previous) {
   computation = undefined;
   previousOperand = "";
   operator = "";
-  updateDisplay;
+  currentOperandText.textContent = currentOperand;
 };
 
 // const equalsButton = document.querySelectorAll("[data-equals");
@@ -69,3 +71,7 @@ let compute = function () {
 document.getElementById("equals").onclick = compute;
 
 const currentOperandText = document.querySelector("[data-current-operand]");
+currentOperandText.textContent = "0";
+// let updateDisplay = function () {
+//   currentOperandText.textContent = currentOperand;
+// };
