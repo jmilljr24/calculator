@@ -1,6 +1,7 @@
 let currentOperand = "";
 let previousOperand = "";
 let operator = "";
+const operatorArray = ["add", "subtract", "multiple", "divide"];
 
 const numberButton = document.querySelectorAll("[data-number");
 numberButton.forEach((button) => {
@@ -13,18 +14,25 @@ numberButton.forEach((button) => {
 
 const multiDigit = function (input) {
   currentOperand += input;
-  console.log(currentOperand);
 };
 
 const operationButton = document.querySelectorAll("[data-operation");
 operationButton.forEach((button) => {
   button.addEventListener("click", () => {
-    // document.getElementById(button.id).disabled = true;
-    // operation(button.id, currentOperand, previousOperand);
-    // document.getElementById(button.id).disabled = false;
-    operator += button.id;
+    if (
+      operator === "add" ||
+      operator === "subtract" ||
+      operator === "multiply" ||
+      operator === "divide"
+    ) {
+      compute();
+      operator = "";
+    }
 
-    previousOperand = currentOperand;
+    operator += button.id;
+    if (currentOperand != "") {
+      previousOperand = currentOperand;
+    }
     currentOperand = "";
   });
 });
@@ -49,6 +57,8 @@ const operation = function (mathFunction, current, previous) {
     case "divide":
       computation = prev / cur;
       break;
+    default:
+      return;
   }
   currentOperand = computation;
   computation = undefined;
@@ -57,21 +67,22 @@ const operation = function (mathFunction, current, previous) {
   currentOperandText.textContent = currentOperand;
 };
 
-// const equalsButton = document.querySelectorAll("[data-equals");
-// equalsButton.forEach((button) => {
-//   button.addEventListener("click", () => {
-//     compute();
-//   });
-// });
-
 let compute = function () {
   operation(operator, currentOperand, previousOperand);
 };
-
-document.getElementById("equals").onclick = compute;
 
 const currentOperandText = document.querySelector("[data-current-operand]");
 currentOperandText.textContent = "0";
 // let updateDisplay = function () {
 //   currentOperandText.textContent = currentOperand;
 // };
+
+let clear = function () {
+  previousOperand = "";
+  currentOperand = "";
+  operator = "";
+  currentOperandText.textContent = 0;
+};
+
+document.getElementById("clear").onclick = clear;
+document.getElementById("equals").onclick = compute;
