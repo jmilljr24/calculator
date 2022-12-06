@@ -73,6 +73,7 @@ const operation = function (mathFunction, current, previous) {
         computation = prev / cur;
       }
       break;
+
     default:
       return;
   }
@@ -97,5 +98,12 @@ let clear = function () {
   currentOperandText.textContent = 0;
 };
 
+let posNeg = function () {
+  if (currentOperand === "") return;
+  currentOperand = Number(currentOperand) * -1;
+  currentOperandText.textContent = currentOperand;
+};
+
 document.getElementById("clear").onclick = clear;
 document.getElementById("equals").onclick = compute;
+document.getElementById("posneg").onclick = posNeg;
