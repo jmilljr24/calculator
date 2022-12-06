@@ -2,28 +2,33 @@ let currentOperand = "";
 let previousOperand = "";
 let operator = "";
 
+//rounding function
 Number.prototype.round = function (n) {
   const d = Math.pow(10, n);
   return Math.round((this + Number.EPSILON) * d) / d;
 };
 
+//take each digit input and create string
+const multiDigit = function (input) {
+  if (input === "." && currentOperand.includes(".")) return;
+  currentOperand += input;
+};
+
+//Number input to string function and set display to current number
 const numberButton = document.querySelectorAll("[data-number");
 numberButton.forEach((button) => {
   button.addEventListener("click", () => {
-    console.log(button.textContent);
     multiDigit(button.textContent);
     currentOperandText.textContent = currentOperand;
   });
 });
 
-const multiDigit = function (input) {
-  currentOperand += input;
-};
-
+//Operation buttons will set operator and/or compute and set next operator
 const operationButton = document.querySelectorAll("[data-operation");
 operationButton.forEach((button) => {
   button.addEventListener("click", () => {
     if (
+      //Checks if operator is already selected
       operator === "add" ||
       operator === "subtract" ||
       operator === "multiply" ||
@@ -35,6 +40,7 @@ operationButton.forEach((button) => {
 
     operator += button.id;
     if (currentOperand != "") {
+      // wont set previous operand is current is blank
       previousOperand = currentOperand;
     }
     currentOperand = "";
@@ -70,7 +76,7 @@ const operation = function (mathFunction, current, previous) {
     default:
       return;
   }
-  currentOperand = computation.round(10);
+  currentOperand = computation.round(10); //result rounded to 10 decimals
   computation = undefined;
   previousOperand = "";
   operator = "";
@@ -82,10 +88,7 @@ let compute = function () {
 };
 
 const currentOperandText = document.querySelector("[data-current-operand]");
-currentOperandText.textContent = "0";
-// let updateDisplay = function () {
-//   currentOperandText.textContent = currentOperand;
-// };
+currentOperandText.textContent = "0"; //default number displayed
 
 let clear = function () {
   previousOperand = "";
