@@ -55,7 +55,13 @@ const operation = function (mathFunction, current, previous) {
       computation = prev * cur;
       break;
     case "divide":
-      computation = prev / cur;
+      if (cur === 0) {
+        alert("Error! Not defined");
+        clear();
+        return;
+      } else {
+        computation = prev / cur;
+      }
       break;
     default:
       return;
