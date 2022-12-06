@@ -1,7 +1,11 @@
 let currentOperand = "";
 let previousOperand = "";
 let operator = "";
-const operatorArray = ["add", "subtract", "multiple", "divide"];
+
+Number.prototype.round = function (n) {
+  const d = Math.pow(10, n);
+  return Math.round((this + Number.EPSILON) * d) / d;
+};
 
 const numberButton = document.querySelectorAll("[data-number");
 numberButton.forEach((button) => {
@@ -66,7 +70,7 @@ const operation = function (mathFunction, current, previous) {
     default:
       return;
   }
-  currentOperand = computation;
+  currentOperand = computation.round(10);
   computation = undefined;
   previousOperand = "";
   operator = "";
